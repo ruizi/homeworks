@@ -3,9 +3,9 @@ from django.db import models
 
 # Create your models here.
 class UploadImages(models.Model):
-    image = models.ImageField(upload_to='image', default='media/image/default.png',
+    image = models.ImageField(upload_to='image', default='image/default.png',
                               max_length=100, verbose_name='图像', blank=True, null=True)
-    image_processed = models.ImageField(upload_to='image_processed', default='media/image/default.png',
+    image_processed = models.ImageField(upload_to='image_processed', default='image/default.png',
                                         max_length=100, verbose_name='图像1', blank=True, null=True)
     time = models.DateTimeField(auto_now_add=True)
 
@@ -14,9 +14,9 @@ class UploadImages(models.Model):
 
 
 class SeamCarvingPicture(models.Model):
-    image = models.ImageField(upload_to='image', default='media/image/default.png',
+    image = models.ImageField(upload_to='image', default='image/default.png',
                               max_length=100, verbose_name='图像', blank=True, null=True)
-    image_processed = models.ImageField(upload_to='image/image_processed', default='media/image/default.png',
+    image_processed = models.ImageField(upload_to='image/image_processed', default='image/default.png',
                                         max_length=100, verbose_name='图像1', blank=True, null=True)
     time = models.DateTimeField(auto_now_add=True)
 

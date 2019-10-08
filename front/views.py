@@ -31,7 +31,7 @@ def show_model(request):
 def reduce_fogy(request):
     if request.method == "GET":
         image = ImageUploadForm()
-        img_ob = models.UploadImages.objects.first()
+        img_ob = models.UploadImages.objects.exclude(image_processed__contains="default").first() #越过数据库前几个不好的数据
         return render(request, "fogy.html", locals())
     else:
         image = ImageUploadForm(request.POST, request.FILES)
@@ -51,7 +51,7 @@ def reduce_fogy(request):
                     up_load_img = img_ob
                     fogy_reduced_picture = fogy_reduce_algorithm.start_to_calculate(up_load_img.image.path)
                     print(fogy_reduced_picture)
-                    fogy_reduced_picture = fogy_reduced_picture.split('/media/')[1]
+                    fogy_reduced_picture = fogy_reduced_picture.split('\media')[1]
                     img_ob.image_processed = fogy_reduced_picture
                     img_ob.save()
                     message = "finished"
@@ -73,7 +73,7 @@ def reduce_fogy(request):
 def seam_carving(request):
     if request.method == "GET":
         image = ImageUploadForm()
-        img_ob = models.SeamCarvingPicture.objects.first()
+        img_ob = models.SeamCarvingPicture.objects.exclude(image_processed__contains="default").first()  # 越过数据库前几个不好的数据
         return render(request, "SeamCarving.html", locals())
     else:
         image = ImageUploadForm(request.POST, request.FILES)

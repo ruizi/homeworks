@@ -106,7 +106,7 @@ def start_to_calculate(imgPath):
     # cv2.waitKey()
     imgPath_pre = imgPath.split('.')[0]
     imgPath_pre += "_out."
-    imgPath_pre_change = imgPath_pre.split('image')[0] + "\image\image_processed" + imgPath_pre.split('image')[1]
+    imgPath_pre_change = imgPath_pre.split('image')[0] + "image\image_processed" + imgPath_pre.split('image')[1]
     imgPath_out = imgPath_pre_change + imgPath.split('.')[1]
     cv2.imwrite(imgPath_out, J * 255)
     return imgPath_out
