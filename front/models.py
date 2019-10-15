@@ -23,6 +23,16 @@ class SeamCarvingPicture(models.Model):
     class Meta:
         db_table = 'SeamCarving'
 
+class flr_set(models.Model):
+    image = models.ImageField(upload_to='image', default='image/default.png',
+                              max_length=100, verbose_name='图像', blank=True, null=True)
+    image_processed = models.ImageField(upload_to='image_processed', default='image/default.png',
+                                        max_length=100, verbose_name='图像1', blank=True, null=True)
+    time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'flr_set'
+
 
 class sift(models.Model):
     image1 = models.ImageField(upload_to='image', default='media/image/default.png',
@@ -36,16 +46,6 @@ class sift(models.Model):
     class Meta:
         db_table = 'sift'
 
-
-class flr_set(models.Model):
-    image = models.ImageField(upload_to='image', default='media/image/default.png',
-                              max_length=100, verbose_name='图像', blank=True, null=True)
-    image_processed = models.ImageField(upload_to='image/image_processed', default='media/image/default.png',
-                                        max_length=100, verbose_name='图像1', blank=True, null=True)
-    time = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'flr_set'
 
 
 class al_route(models.Model):
@@ -83,3 +83,14 @@ class User(models.Model):
 
     class Meta:
         db_table = 'user'
+
+
+class Lvbo(models.Model):
+    image = models.ImageField(upload_to='image', default='image/default.png',
+                              max_length=100, verbose_name='图像', blank=True, null=True)
+    image_processed = models.ImageField(upload_to='image_processed', default='image/default.png',
+                                        max_length=100, verbose_name='图像1', blank=True, null=True)
+
+    class Meta:
+        db_table = 'lvbo'
+

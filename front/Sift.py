@@ -28,10 +28,10 @@ def start_to_calculate(imgPath1, imgPath2):
     img1_gray = cv2.imread(imgPath1, cv2.IMREAD_UNCHANGED)
 
     img2_gray = cv2.imread(imgPath2, cv2.IMREAD_UNCHANGED)
-
+    print(12)
     sift = cv2.xfeatures2d.SIFT_create()  # 构建sift对象
     # sift = cv2.SURF()
-
+    print(34)
     kp1, des1 = sift.detectAndCompute(img1_gray, None)  # 特征点检测
     kp2, des2 = sift.detectAndCompute(img2_gray, None)
 
@@ -47,7 +47,7 @@ def start_to_calculate(imgPath1, imgPath2):
     outpicture = drawMatchesKnn_cv2(img1_gray, kp1, img2_gray, kp2, goodMatch[:])
     imgPath_pre = imgPath1.split('.')[0]
     imgPath_pre += "_out."
-    imgPath_pre_change = imgPath_pre.split('image')[0] + "\image\image_processed" + imgPath_pre.split('image')[1]
+    imgPath_pre_change = imgPath_pre.split('image')[0] + "/image/image_processed" + imgPath_pre.split('image')[1]
     imgPath_out = imgPath_pre_change + imgPath1.split('.')[1]
     cv2.imwrite(imgPath_out, outpicture)
     return imgPath_out

@@ -51,7 +51,7 @@ def reduce_fogy(request):
                     up_load_img = img_ob
                     fogy_reduced_picture = fogy_reduce_algorithm.start_to_calculate(up_load_img.image.path)
                     print(fogy_reduced_picture)
-                    fogy_reduced_picture = fogy_reduced_picture.split('\media')[1]
+                    fogy_reduced_picture = fogy_reduced_picture.split('/media')[1]
                     img_ob.image_processed = fogy_reduced_picture
                     img_ob.save()
                     message = "finished"
@@ -60,13 +60,19 @@ def reduce_fogy(request):
                     message = "Upload_failed! Please try again!"
                     return render(request, "fogy.html", locals())
             else:
-                message = "ImageField is None! try to use a default picture to calculator! if you want to try your own pictures,please use the filechooser to sent a picture to the server!"
+                message = "ImageField is None! try to use a default picture to calculator! if you want to try your own pictures,please use the filechooser to send a picture to the server!"
                 # Define data path
-                data_path = PATH + '\media\image' + '\img1.jpg'
-                fogy_reduced_picture_path = fogy_reduce_algorithm.start_to_calculate(data_path)
-
-                fogy_reduced_picture_path = fogy_reduced_picture_path.split('\\')[-2] + "\\" + \
-                                            fogy_reduced_picture_path.split('\\')[-1]
+                img_ob_ori = models.UploadImages.objects.first()
+                temp_image = img_ob_ori.image
+                #image = img_ob_ori.image.name.split("/")[1]
+                data_path = PATH + '/media/' + img_ob_ori.image.name
+                print(data_path)
+                fogy_reduced_picture = fogy_reduce_algorithm.start_to_calculate(data_path)
+                img_ob = models.UploadImages.objects.create()
+                img_ob.image = temp_image
+                img_ob.image_processed = fogy_reduced_picture.split('/media')[1]
+                img_ob.save()
+                image = ImageUploadForm()
                 return render(request, "fogy.html", locals())
 
 
@@ -97,7 +103,7 @@ def seam_carving(request):
                     img_ob_after.save()
                     up_load_img = img_ob_after
                     seam_carving_picture = SeamCarving.start_to_calculate(up_load_img.image.path, t1)
-                    img_ob_after.image_processed = seam_carving_picture
+                    img_ob_after.image_processed = seam_carving_picture.split('/media')[1]
 
                     img_ob_after.save()
                     message = "finished"
@@ -107,19 +113,19 @@ def seam_carving(request):
                     message = "Upload_failed! Please try again!"
                     return render(request, "SeamCarving.html", locals())
             else:
-                message = "ImageField is None! try to use a default picture to calculator! if you want to try your own pictures,please use the filechooser to sent a picture to the server!"
+                message = "ImageField is None! try to use a default picture to calculator! if you want to try your own pictures,please use the filechooser to send a picture to the server!"
                 # Define data path
                 img_ob_ori = models.SeamCarvingPicture.objects.first()
                 temp_image = img_ob_ori.image
-                image = img_ob_ori.image.name.split("/")[1]
-                print(image)
-                data_path = PATH + '\media\image' + '\\' + image
+                #image = img_ob_ori.image.name.split("/")[1]
+                data_path = PATH + '/media/' + img_ob_ori.image.name
                 print(data_path)
                 seam_carving_picture = SeamCarving.start_to_calculate(data_path, t1)
 
                 img_ob_after = models.SeamCarvingPicture.objects.create()
                 img_ob_after.image = temp_image
-                img_ob_after.image_processed = seam_carving_picture
+                print(seam_carving_picture)
+                img_ob_after.image_processed = seam_carving_picture.split('/media')[1]
                 img_ob_after.save()
                 image = ImageUploadForm()
                 return render(request, "SeamCarving.html", locals())
@@ -153,7 +159,7 @@ def sift(request):
                     up_load_img = img_ob
                     sift_picture = Sift.start_to_calculate(img_ob.image1.path,
                                                            img_ob.image2.path)
-                    img_ob.image_processed = sift_picture
+                    img_ob.image_processed = sift_picture.split('/media')[1]
                     img_ob.save()
                     message = "finished"
                     new_image = ImageUploadForm1()
@@ -206,7 +212,7 @@ def flr_set(request):
                         filter_picture = fliter.start_to_calculate(up_load_img.image.path, "add")
                     print(filter_picture)
                     # filter_picture = filter_picture.split('/media/')[1]
-                    img_ob.image_processed = filter_picture
+                    img_ob.image_processed = filter_picture.split('/media')[1]
                     img_ob.save()
                     new_image = ImageUploadForm()
                     message = "finished"
